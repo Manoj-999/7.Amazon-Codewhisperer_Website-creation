@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pizza Booking Website</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('https://source.unsplash.com/random/800x600/?pizza');
+            background-size: cover;
+            background-position: center;
+        }
+        h1, h2, h3 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        .pizza-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .pizza-option {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            width: 200px;
+            text-align: left;
+        }
+        .toppings {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .topping {
+            margin-bottom: 10px;
+        }
+        .order-form {
+            margin-top: 30px;
+            text-align: left;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pizza Booking Website</h1>
+        <h2>Choose Your Pizza</h2>
+        <div class="pizza-options">
+            <div class="pizza-option">
+                <h3>Margherita</h3>
+                <p>Tomato sauce, mozzarella, and fresh basil.</p>
+                <p>Price: $10</p>
+            </div>
+            <div class="pizza-option">
+                <h3>Pepperoni</h3>
+                <p>Tomato sauce, mozzarella, and pepperoni.</p>
+                <p>Price: $12</p>
+            </div>
+            <div class="pizza-option">
+                <h3>Veggie Delight</h3>
+                <p>Tomato sauce, mozzarella, bell peppers, onions, and mushrooms.</p>
+                <p>Price: $14</p>
+            </div>
+        </div>
+
+        <h2>Additional Toppings</h2>
+        <div class="toppings">
+            <div class="topping">
+                <input type="checkbox" id="mushrooms" name="toppings[]" value="mushrooms">
+                <label for="mushrooms">Mushrooms ($1)</label>
+            </div>
+            <div class="topping">
+                <input type="checkbox" id="onions" name="toppings[]" value="onions">
+                <label for="onions">Onions ($0.50)</label>
+            </div>
+            <div class="topping">
+                <input type="checkbox" id="peppers" name="toppings[]" value="peppers">
+                <label for="peppers">Bell Peppers ($1)</label>
+            </div>
+            <div class="topping">
+                <input type="checkbox" id="olives" name="toppings[]" value="olives">
+                <label for="olives">Olives ($0.75)</label>
+            </div>
+        </div>
+
+        <h2>Delivery Details</h2>
+        <div class="order-form">
+            <input type="text" placeholder="Name" required>
+            <input type="text" placeholder="Address" required>
+            <input type="number" placeholder="Phone Number" min="1000000000" max="9999999999" required>
+            <p>Delivery Fee: $2</p>
+        </div>
+
+        <h2>Payment Details</h2>
+        <div class="order-form">
+            <input type="text" placeholder="Card Name" required>
+            <input type="number" placeholder="Card Number (16 digits)" min="1000000000000000" max="9999999999999999" required>
+            <input type="number" placeholder="CCV" min="100" max="999" required>
+            <input type="number" placeholder="Expiry Month" min="1" max="12" required>
+            <input type="number" placeholder="Expiry Year" min="2023" max="2030" required>
+        </div>
+
+        <button onclick="placeOrder()">Place Order</button>
+    </div>
+
+    <script>
+        function placeOrder() {
+            const pizzaPrice = 14; // Example price for Veggie Delight pizza
+            const deliveryFee = 2;
+            const tax = 0.08; // 8% tax
+            const toppings = document.querySelectorAll('input[name="toppings[]"]:checked');
+            let toppingsPrice = 0;
+
+            toppings.forEach(topping => {
+                switch (topping.value) {
+                    case 'mushrooms':
+                        toppingsPrice += 1;
+                        break;
+                    case 'onions':
+                        toppingsPrice += 0.5;
+                        break;
+                    case 'peppers':
+                        toppingsPrice += 1;
+                        break;
+                    case 'olives':
+                        toppingsPrice += 0.75;
+                        break;
+                }
+            });
+
+            const totalPrice = (pizzaPrice + toppingsPrice + deliveryFee) * (1 + tax);
+            const eta = Math.floor(Math.random() * 60) + 30; // Random ETA between 30-90 minutes
+
+            alert(`Order placed successfully! Total Price: $${totalPrice.toFixed(2)} (including tax). Estimated Delivery Time: ${eta} minutes.`);
+        }
+    </script>
+</body>
+</html>
